@@ -8,7 +8,7 @@ Projektin teen Pythonilla. Pystyn vertaisarvioida Pythonilla, Javalla, C#:lla ja
 
 Projektin ideana on luoda XML-Diff algoritmi (luultavasi X-Diff) [1], joka on suunniteltu XML-dokumenttien muutosten havaitsemiseen. Syy miksi luultavasti menen X-Diff algoritmillä enkä esimerkiksi Zhang-Shasha-puumuutos algoritmilla on se että X-Diff ottaa huomioon XML-dokumenttien ominaisuudet, kuten solmujen järjestyksen ja mahdolliset liikkeet hierarkiassa. Algoritmi siis luo muutosoperaatioiden sarjan (edit scriptin) muutoksista.
 
-XML-Diff algorithim toteukseen tulen käyttämään XML-dokumentteja kuvaava puutietorakenne 
+XML-Diff algorithim toteukseen tulen käyttämään XML-dokumentteja kuvaavaa puutietorakennetta 
 [2]. XML-dokumentit ovat luonteeltaan hierarkkisia, joten ne esitetään puina, joissa jokainen solmu vastaa yhtä XML-elementtiä. Eli projektissa käytän Pythonin 
 xml.etree.ElementTree-kirjastoa XML-dokumenttien parsimiseen ja puiden luomiseen. 
 
