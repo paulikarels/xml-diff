@@ -36,7 +36,6 @@ Tietojenkäsittelytieteen kandidaatti (TKT).
 
 Dokumentaatiot on suomeksi ja ohjelmakoodi englanniksi.
 
-
 ## Viitteet
 - [1] https://research.cs.wisc.edu/niagara/papers/xdiff.pdf
 - [2] https://docs.python.org/3/library/xml.etree.elementtree.html
