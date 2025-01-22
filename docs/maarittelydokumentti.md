@@ -6,7 +6,7 @@ Projektin teen Pythonilla. Pystyn vertaisarvioida Pythonilla, Javalla, C#:lla ja
 
 ## Algoritmit ja tietorakenteet
 
-Projektin ideana on vertailla Lempel-Ziv-Welch (LZW) - ja Huffman-koodauksen pakkausmenetelmiä tiedostojen pakkaamisessa. 
+Projektin ideana on vertailla Lempel-Ziv-Welch (LZW) [2] - ja Huffman-koodauksen[1] pakkausmenetelmiä tiedostojen pakkaamisessa. 
 
 LZW-pakkausalgoritmi perustuu toistuvien merkkijonojen löytämiseen ja korvaamiseen lyhyimmillä koodilla (bitillä). Algoritmi ei vaadi etukäteen tietoa merkkien esiintymisistä, vaan se luo  symbolitaulukon (tai tietorakenteen) pakkausprosessin aikana.
 
@@ -37,5 +37,6 @@ Tietojenkäsittelytieteen kandidaatti (TKT).
 Dokumentaatiot on suomeksi ja ohjelmakoodi englanniksi.
 
 ## Viitteet
-- [1] https://research.cs.wisc.edu/niagara/papers/xdiff.pdf
-- [2] https://docs.python.org/3/library/xml.etree.elementtree.html
+- [1] https://en.wikipedia.org/wiki/Huffman_coding
+- [2] https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
+- [3] https://www.ajer.org/papers/v3(2)/C0322226.pdf
