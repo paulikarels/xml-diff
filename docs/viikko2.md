@@ -29,10 +29,4 @@ Huffmanin koodaus ja LZW algoritmit eivät ole vielä täysin tuttuja ja ongelmi
 
 ## Viikon 2 Testikattavuus
 
-Name                                        Stmts   Miss Branch BrPart  Cover   Missing
----------------------------------------------------------------------------------------
-compression_comparison\__init__.py              0      0      0      0   100%
-compression_comparison\huffman\huffman.py      59     12     18      0    77%   79-86, 92-95
-tests\test_huffman.py                          19      1      2      1    90%   23
----------------------------------------------------------------------------------------
-TOTAL                                          78     13     20      1    80%
+![alt text](temp_viikon2_testikattavuus.png)
