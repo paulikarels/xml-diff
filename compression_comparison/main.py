@@ -7,7 +7,10 @@ app = typer.Typer()
 
 @app.command()
 # e for encoding, d for decoding
-def comparator(cmd: str, target: str):
+def comparator(cmd, target):
+    """
+    Command-line interface for encoding and decoding files using Huffman coding.
+    """
     data_folder = "data"
     target_path = os.path.join(data_folder, target)
 

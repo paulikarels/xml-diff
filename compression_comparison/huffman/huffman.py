@@ -20,6 +20,9 @@ class Node:
 def build_huffman_tree(text):
     """
     Builds the Huffman tree for the given text.
+    
+    Args:
+        text (str): The input text to be encoded.
     """
     frequency = Counter(text)
     heap = [Node(freq, char) for char, freq in frequency.items()]
@@ -36,6 +39,11 @@ def build_huffman_tree(text):
 def build_codes(node, prefix="", codes={}):
     """
     Builds the Huffman codes for each character by traversing the Huffman tree.
+
+    Args:
+        node (Node): The current node in the Huffman tree.
+        prefix (str): The current Huffman code prefix.
+        codes (dict): The dictionary to store the Huffman codes.
     """
     if node is not None:
         if node.value is not None:
@@ -47,6 +55,9 @@ def build_codes(node, prefix="", codes={}):
 def huffman_encoding(text):
     """
     Encodes the given text using Huffman coding.
+
+    Args:
+        text (str): The input text to be encoded.
     """
     root = build_huffman_tree(text)
     codebook = build_codes(root)
@@ -56,6 +67,10 @@ def huffman_encoding(text):
 def huffman_decoding(root, encoded_text):
     """
     Decodes the given encoded text using the Huffman tree.
+
+    Args:
+        root (Node): The root node of the Huffman tree.
+        encoded_text (str): The encoded text to be decoded.
     """
     decoded_text = ""
     current_node = root
@@ -75,6 +90,9 @@ def huffman_decoding(root, encoded_text):
 def compress(ones_zeros):
     """
     Compresses the binary string into a bytes object.
+
+    Args:
+        ones_zeros (str): The binary string to be compressed.
     """
     padding = 8 - len(ones_zeros) % 8
     if padding != 8:
@@ -88,6 +106,10 @@ def compress(ones_zeros):
 def decompress(bytesFile, padding):
     """
     Decompresses the bytes object into a binary string.
+
+    Args:
+        bytesFile (bytes): The compressed bytes object.
+        padding (int): The padding parameter used during compression.
     """
     ones_zeros = ''.join(f'{byte:08b}' for byte in bytesFile)
     if padding != 8:
