@@ -292,17 +292,6 @@ files = [
 toml = ["tomli"]
 
 [[package]]
-name = "cowsay"
-version = "6.1"
-description = "The famous cowsay for GNU/Linux is now available for python"
-optional = false
-python-versions = ">=3.8"
-groups = ["main"]
-files = [
-    {file = "cowsay-6.1-py3-none-any.whl", hash = "sha256:274b1e6fc1b966d53976333eb90ac94cb07a450a700b455af9fbdf882244b30a"},
-]
-
-[[package]]
 name = "dill"
 version = "0.3.9"
 description = "serialize all of Python"
@@ -709,4 +698,4 @@ markers = {dev = "python_version < \"3.11\""}
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "d7d5d4029e5a4d1127645b5daa21afad056032b120beca5dc190aff70e501401"
+content-hash = "bea3ef3f0b6b8ed8645c44d8fc4a97b1b319a0f461b31cb23e60337c686d929c"

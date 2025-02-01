@@ -20,7 +20,6 @@ coverage = "^7.6.10"
 
 [tool.poetry.dependencies]
 bitstring = ">=4.3.0,<5.0.0"
-cowsay = "^6.1"
 numpy = "^2.2.2"
 typer = "^0.15.1"
 bitio = "^0.3.0"
