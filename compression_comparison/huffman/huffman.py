@@ -22,7 +22,15 @@ def build_huffman_tree(text):
     Args:
         text (str): The input text to be encoded.
     """
+    if not text:
+        return None
+
     frequency = Counter(text)
+    
+    if len(frequency) == 1:
+        char = list(frequency.keys())[0]
+        return Node(frequency[char], char)
+
     heap = [Node(freq, char) for char, freq in frequency.items()]
     heapq.heapify(heap)
 
@@ -57,21 +65,31 @@ def huffman_encoding(text):
     Args:
         text (str): The input text to be encoded.
     """
+    
+    if not text: 
+        return None, ""
+
     root = build_huffman_tree(text)
     codebook = build_codes(root)
-    encoded_text = ''.join(codebook[char] for char in text)
+    if len(codebook) == 1:
+        char = next(iter(codebook))
+        return Node(len(text), char), '0' * len(text)
+    else:
+        encoded_text = ''.join(codebook[char] for char in text)
+
+    
     return root, encoded_text
 
 def huffman_decoding(root, encoded_text):
-    """
-    Decodes the given encoded text using the Huffman tree.
+    if not encoded_text:
+        return ""
 
-    Args:
-        root (Node): The root node of the Huffman tree.
-        encoded_text (str): The encoded text to be decoded.
-    """
     decoded_text = ""
     current_node = root
+
+    if current_node.left is None and current_node.right is None:
+        decoded_text = current_node.value * len(encoded_text)
+        return decoded_text
 
     for bit in encoded_text:
         if bit == "0":
