@@ -6,6 +6,27 @@ CODE_BIT_LEN = 12
 CHAR_SET_LEN = 2 ** CHAR_BIT_LEN
 CODE_SET_LEN = 2 ** CODE_BIT_LEN
 
+def build_lzw_dictionary():
+    """
+    Create the LZW dictionary with all single-character strings.
+    """
+    dictionary = {chr(i): i for i in range(CHAR_SET_LEN)}
+    return dictionary
+
+def longest_prefix_in_dictionary(dictionary, query):
+    """
+    Finds the longest prefix of the query that exists in the dictionary.
+
+    Args:
+        dictionary (dict): The LZW dictionary.
+        query (str): The input string to search for the longest prefix.
+    """
+    length = 0
+    for i in range(1, len(query) + 1):
+        if query[:i] in dictionary:
+            length = i
+    return query[:length]
+
 # Encoding consist of 5 steps (From Wikipedia) https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch#Encoding
 '''
 1. Initialize the dictionary to contain all strings of length one.
@@ -14,18 +35,14 @@ CODE_SET_LEN = 2 ** CODE_BIT_LEN
 4. Add W followed by the next symbol in the input to the dictionary.
 5. Go to Step 2.
 '''
-def build_lzw_dictionary():
-    dictionary = {chr(i): i for i in range(CHAR_SET_LEN)}
-    return dictionary
-
-def longest_prefix_in_dictionary(dictionary, query):
-    length = 0
-    for i in range(1, len(query) + 1):
-        if query[:i] in dictionary:
-            length = i
-    return query[:length]
-
 def lzw_compress(origin_filepath, compress_filepath):
+    """
+    Compresses a file with LZW.
+
+    Args:
+        origin_filepath (str): The path to the original file to be compressed.
+        compress_filepath (str): The path to the output compressed file.
+    """
     # Step 1.
     dictionary = build_lzw_dictionary()
     code = CHAR_SET_LEN + 1
@@ -69,12 +86,19 @@ def lzw_compress(origin_filepath, compress_filepath):
 3. Repeat Step 2 until end of input string
 '''
 def lzw_decompress(compress_filepath, origin_filepath):
+    """
+    Decompresses a file with LZW.
+
+    Args:
+        compress_filepath (str): The path to the compressed file.
+        origin_filepath (str): The path to the output decompressed file.
+    """
+    # Step 1.
     dictionary = [chr(i) for i in range(CHAR_SET_LEN)]
     dictionary.append('')
 
     with open(compress_filepath, 'rb') as com_f, open(origin_filepath, 'wb') as ori_f:
         with BitReader(com_f) as reader, BitWriter(ori_f) as writer:
-            # Step 1.
             codeword = reader.read_bits(CODE_BIT_LEN)
             if codeword != CHAR_SET_LEN:
                 val = dictionary[codeword]
