@@ -1,8 +1,38 @@
-import typer
 import os
-from compression_comparison.huffman.huffman import huffman_encoding, huffman_decoding, compress, decompress, serialize_tree, deserialize_tree
+import typer
+from compression_comparison.huffman.huffman import (
+    huffman_encoding,
+    huffman_decoding,
+    compress,
+    decompress,
+    serialize_tree,
+    deserialize_tree
+)
 
 app = typer.Typer()
+
+def write_encoded_file(output_path, root, compressed_text, padding):
+    """Write the encoded data to a file."""
+    with open(output_path, "wb") as f:
+        tree_data = serialize_tree(root)
+        f.write(tree_data.encode() + b'\n\n')
+        f.write(compressed_text)
+        f.write(padding.to_bytes(1, 'big'))
+
+def read_compressed_file(target_path):
+    """Read the compressed file and return the relevant data."""
+    with open(target_path, "rb") as f:
+        tree_data_lines = []
+        while True:
+            line = f.readline().decode().strip()
+            if line == "":
+                break
+            tree_data_lines.append(line)
+        tree_data = ''.join(tree_data_lines)
+        compressed_text_with_padding = f.read()
+        padding = compressed_text_with_padding[-1]
+        compressed_text = compressed_text_with_padding[:-1]
+    return tree_data, compressed_text, padding
 
 @app.command()
 # e for encoding, d for decoding
@@ -27,33 +57,18 @@ def comparator(cmd, target):
         root, encoded_text = huffman_encoding(text)
         compressed_text, padding = compress(encoded_text)
 
-        encFileName = os.path.splitext(os.path.basename(target))[0]
-        output_path = os.path.join(data_folder, encFileName + ".hc")
-        with open(output_path, "wb") as f:
-            tree_data = serialize_tree(root)
-            f.write(tree_data.encode() + b'\n\n') 
-            f.write(compressed_text)
-            f.write(padding.to_bytes(1, 'big'))
+        enc_file_name  = os.path.splitext(os.path.basename(target))[0]
+        output_path = os.path.join(data_folder, enc_file_name  + ".hc")
+        write_encoded_file(output_path, root, compressed_text, padding)
 
     elif cmd == "d":
-        with open(target_path, "rb") as f:
-            tree_data_lines = []
-            while True:
-                line = f.readline().decode().strip()
-                if line == "":
-                    break
-                tree_data_lines.append(line)
-            tree_data = ''.join(tree_data_lines)
-            compressed_text_with_padding = f.read()
-            padding = compressed_text_with_padding[-1]
-            compressed_text = compressed_text_with_padding[:-1]
-
+        tree_data, compressed_text, padding = read_compressed_file(target_path)
         root = deserialize_tree(tree_data)
         encoded_text = decompress(compressed_text, padding)
         decoded_text = huffman_decoding(root, encoded_text)
 
-        decFileName = os.path.splitext(os.path.basename(target))[0]
-        output_path = os.path.join(data_folder, decFileName + "_decoded.txt")
+        enc_file_name  = os.path.splitext(os.path.basename(target))[0]
+        output_path = os.path.join(data_folder, enc_file_name  + "_decoded.txt")
         with open(output_path, "w", encoding="utf8", newline='') as f:
             f.write(decoded_text)
 
