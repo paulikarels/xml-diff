@@ -1,5 +1,5 @@
 import os
-from bitio import BitReader, BitWriter
+from compression_comparison.lzw.bitio import BitReader, BitWriter
 
 CHAR_BIT_LEN = 8  
 CODE_BIT_LEN = 12
@@ -118,3 +118,41 @@ def lzw_decompress(compress_filepath, origin_filepath):
                         dictionary.append(val + s[0])
                     val = s
 
+def lzw_compress_from_string(input_text, writer):
+    dictionary = build_lzw_dictionary()
+    code = CHAR_SET_LEN + 1
+    input_data = list(input_text)
+    
+    while input_data:
+        W = longest_prefix_in_dictionary(dictionary, ''.join(input_data))
+        writer.write_bits(dictionary[W], CODE_BIT_LEN)
+        if len(W) < len(input_data) and code < CODE_SET_LEN:
+            dictionary[''.join(input_data[:len(W) + 1])] = code
+            code += 1
+        input_data = input_data[len(W):]
+
+def lzw_decompress_from_bytes(compressed_data, decompressed_text):
+    dictionary = [chr(i) for i in range(CHAR_SET_LEN)] + ['']
+    reader = BitReader(compressed_data)
+    codeword = reader.read_bits(CODE_BIT_LEN)
+    
+    if codeword == CHAR_SET_LEN:
+        return
+    
+    val = dictionary[codeword]
+    decompressed_text.append(val)
+
+    while True:
+        codeword = reader.read_bits(CODE_BIT_LEN)
+        if not reader.read:
+            break
+        if codeword == CHAR_SET_LEN:
+            break
+        if codeword < len(dictionary):
+            s = dictionary[codeword]
+        else:
+            s = val + val[0]
+        decompressed_text.append(s)
+        if len(dictionary) < CODE_SET_LEN:
+            dictionary.append(val + s[0])
+        val = s

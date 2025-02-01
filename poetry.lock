@@ -163,17 +163,6 @@ files = [
 ]
 
 [[package]]
-name = "bitio"
-version = "0.3.0"
-description = "Input/output utilities of a bit-basis file"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "bitio-0.3.0.tar.gz", hash = "sha256:75e36e0ea1bef150213d8d8f01d55e45562181ef2d6febc9e56d4f52d9d40a9f"},
-]
-
-[[package]]
 name = "bitstring"
 version = "4.3.0"
 description = "Simple construction, analysis and modification of binary data."
@@ -698,4 +687,4 @@ markers = {dev = "python_version < \"3.11\""}
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "bea3ef3f0b6b8ed8645c44d8fc4a97b1b319a0f461b31cb23e60337c686d929c"
+content-hash = "be261587ab112a3f80e7bc56e0bf3ba747d6f986792f88844a752aec667e55ca"
