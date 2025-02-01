@@ -74,13 +74,20 @@ def huffman_encoding(text):
     if len(codebook) == 1:
         char = next(iter(codebook))
         return Node(len(text), char), '0' * len(text)
-    else:
-        encoded_text = ''.join(codebook[char] for char in text)
+    
+    encoded_text = ''.join(codebook[char] for char in text)
 
     
     return root, encoded_text
 
 def huffman_decoding(root, encoded_text):
+    """
+    Decodes a given encoded text using the Huffman tree.
+
+    Args:
+        root (Node): The root node of the Huffman tree.
+        encoded_text (str): The encoded text to be decoded.
+    """
     if not encoded_text:
         return ""
 

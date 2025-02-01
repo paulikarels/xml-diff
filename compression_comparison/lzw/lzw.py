@@ -119,10 +119,17 @@ def lzw_decompress(compress_filepath, origin_filepath):
                     val = s
 
 def lzw_compress_from_string(input_text, writer):
+    """
+    Compresses the input text and writes the compressed data.
+
+    Args:
+        input_text (str): The input text to be compressed.
+        writer (BitWriter): The BitWriter object to write the compressed data.
+    """
     dictionary = build_lzw_dictionary()
     code = CHAR_SET_LEN + 1
     input_data = list(input_text)
-    
+ 
     while input_data:
         W = longest_prefix_in_dictionary(dictionary, ''.join(input_data))
         writer.write_bits(dictionary[W], CODE_BIT_LEN)
@@ -132,13 +139,20 @@ def lzw_compress_from_string(input_text, writer):
         input_data = input_data[len(W):]
 
 def lzw_decompress_from_bytes(compressed_data, decompressed_text):
+    """
+    Decompresses LZW data from bytes.
+
+    Args:
+        compressed_data (bytes): The compressed data in bytes.
+        decompressed_text (list): The list to append the decompressed text.
+    """
     dictionary = [chr(i) for i in range(CHAR_SET_LEN)] + ['']
     reader = BitReader(compressed_data)
     codeword = reader.read_bits(CODE_BIT_LEN)
-    
+
     if codeword == CHAR_SET_LEN:
         return
-    
+
     val = dictionary[codeword]
     decompressed_text.append(val)
 

@@ -1,13 +1,20 @@
 import unittest
 import os
-from compression_comparison.huffman.huffman import huffman_encoding, huffman_decoding, Node
+from compression_comparison.huffman.huffman import (
+    huffman_encoding,
+    huffman_decoding,
+    compress,
+    decompress,
+    serialize_tree,
+    deserialize_tree,
+    Node
+)
 
 class HuffmanTest(unittest.TestCase):
 
     def setUp(self):
         self.text = "this is an example for huffman encoding & coding"
         self.empty_text = ""
-        self.single_char_text = "bbbbbbbb"
         self.complex_text = "Yes, this is dog, another test indeed for huffman"
 
         self.alice_text = self.load_text_from_file('tests/data/alice.txt')
@@ -52,7 +59,7 @@ class HuffmanTest(unittest.TestCase):
         root, encoded_text = huffman_encoding(self.alice_text)
         decoded_text = huffman_decoding(root, encoded_text)
         self.assertEqual(decoded_text, self.alice_text, "Decoded Alice text should match the original text")
-
+    
     def test_large_text(self):
         root, encoded_text = huffman_encoding(self.large_text)
         decoded_text = huffman_decoding(root, encoded_text)
@@ -62,6 +69,22 @@ class HuffmanTest(unittest.TestCase):
         root, encoded_text = huffman_encoding(self.random_text)
         decoded_text = huffman_decoding(root, encoded_text)
         self.assertEqual(decoded_text, self.random_text, "Decoded random text should match the original text")
+
+    def test_tree_serialization(self):
+        root, encoded_text = huffman_encoding(self.text)
+        serialized_tree = serialize_tree(root)
+        deserialized_tree = deserialize_tree(serialized_tree)
+        decoded_text = huffman_decoding(deserialized_tree, encoded_text)
+        self.assertEqual(decoded_text, self.text, "Decoded text from deserialized tree should match the original text")
+
+    def test_compression_decompression(self):
+        root, encoded_text = huffman_encoding(self.text)
+        compressed_data, padding = compress(encoded_text)
+        decompressed_data = decompress(compressed_data, padding)
+        decoded_text = huffman_decoding(root, decompressed_data)
+        self.assertEqual(decoded_text, self.text, "Decoded text after compression and decompression should match the original text")
+
+
 
 if __name__ == "__main__":
     unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(HuffmanTest))
