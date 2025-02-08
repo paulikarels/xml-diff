@@ -6,7 +6,7 @@
 
 ## Mitä olen tehnyt tällä viikolla?
 
-Sain LZW-algoritmin vihdoin toimimaan tiedosto syötteellä (aimmein toimi vain merkkijonolla). Laadin uudet yksikkötestit LZW-algoritmille tiedosto syötteillä. Sekä viimeistelin käyttölittymää toimimaan kummallakin algoritmillä tulevaa vertaisarviointia varten dokumentaatioineen (dokumentaatio vielä hieman kesken).
+Sain LZW-algoritmin vihdoin toimimaan tiedosto syötteellä (aimmein toimi vain merkkijonolla). Laadin uudet yksikkötestit LZW-algoritmille tiedosto syötteillä. Sekä viimeistelin käyttölittymää toimimaan kummallakin algoritmillä tulevaa vertaisarviointia varten käyttöohjeineen (käyttöohjeet vielä hieman kesken).
 
 ## Miten ohjelma on edistynyt?
 
