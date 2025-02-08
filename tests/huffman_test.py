@@ -84,6 +84,13 @@ class HuffmanTest(unittest.TestCase):
         decoded_text = huffman_decoding(root, decompressed_data)
         self.assertEqual(decoded_text, self.text, "Decoded text after compression and decompression should match the original text")
 
+    def test_empty_input_compression_decompression(self):
+        root, encoded_text = huffman_encoding(self.empty_text)
+        compressed_data, padding = compress(encoded_text)
+        decompressed_data = decompress(compressed_data, padding)
+        decoded_text = huffman_decoding(root, decompressed_data)
+        self.assertEqual(decoded_text, self.empty_text, "Decoded empty text after compression should be empty")
+
 
 
 if __name__ == "__main__":
