@@ -32,4 +32,8 @@
 
 ### Viikko 4
 
+[Toteutusdokumentti](docs/toteutusdokumentti.md)
+
+[Käyttöohje](docs/käyttöohje.md)
+
 [Viikkoraportti 4](docs/viikko4.md)
