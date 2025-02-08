@@ -6,11 +6,16 @@ CODE_BIT_LEN = 12
 CHAR_SET_LEN = 2 ** CHAR_BIT_LEN
 CODE_SET_LEN = 2 ** CODE_BIT_LEN
 
-def build_lzw_dictionary():
+def build_lzw_dictionary(input_text=None):
     """
     Create the LZW dictionary with all single-character strings.
     """
     dictionary = {chr(i): i for i in range(CHAR_SET_LEN)}
+    if input_text:
+        unique_chars = set(input_text)
+        for char in unique_chars:
+            if char not in dictionary:
+                dictionary[char] = len(dictionary)
     return dictionary
 
 def longest_prefix_in_dictionary(dictionary, query):
@@ -25,7 +30,7 @@ def longest_prefix_in_dictionary(dictionary, query):
     for i in range(1, len(query) + 1):
         if query[:i] in dictionary:
             length = i
-    return query[:length]
+    return query[:length] if length > 0 else query[0]
 
 # Encoding consist of 5 steps (From Wikipedia) https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch#Encoding
 '''
@@ -63,7 +68,7 @@ def lzw_compress(origin_filepath, compress_filepath):
                 
                 # Step 3.
                 writer.write_bits(dictionary[W], CODE_BIT_LEN)
-                
+
                 if len(W) < len(input) and code < CODE_SET_LEN:
                     # Step 4.
                     dictionary[input[:len(W) + 1]] = code
@@ -118,55 +123,30 @@ def lzw_decompress(compress_filepath, origin_filepath):
                         dictionary.append(val + s[0])
                     val = s
 
-def lzw_compress_from_string(input_text, writer):
+# Methods for testing purposes
+def create_test_bits(input_text, bit_length):
     """
-    Compresses the input text and writes the compressed data.
+    Creates a bit representation of the input text for testing.
 
     Args:
-        input_text (str): The input text to be compressed.
-        writer (BitWriter): The BitWriter object to write the compressed data.
+        input_text (str): The input text to be converted to bits.
+        bit_length (int): The bit length for each character.
     """
-    dictionary = build_lzw_dictionary()
-    code = CHAR_SET_LEN + 1
-    input_data = list(input_text)
- 
-    while input_data:
-        W = longest_prefix_in_dictionary(dictionary, ''.join(input_data))
-        writer.write_bits(dictionary[W], CODE_BIT_LEN)
-        if len(W) < len(input_data) and code < CODE_SET_LEN:
-            dictionary[''.join(input_data[:len(W) + 1])] = code
-            code += 1
-        input_data = input_data[len(W):]
+    bits = []
+    for char in input_text:
+        bits.append(format(ord(char), f'0{bit_length}b'))
+    return ''.join(bits)
 
-def lzw_decompress_from_bytes(compressed_data, decompressed_text):
+def read_test_bits(bit_string, bit_length):
     """
-    Decompresses LZW data from bytes.
+    Reads a bit string and converts it back to text for testing.
 
     Args:
-        compressed_data (bytes): The compressed data in bytes.
-        decompressed_text (list): The list to append the decompressed text.
+        bit_string (str): The bit string to be converted back to text.
+        bit_length (int): The bit length for each character.
     """
-    dictionary = [chr(i) for i in range(CHAR_SET_LEN)] + ['']
-    reader = BitReader(compressed_data)
-    codeword = reader.read_bits(CODE_BIT_LEN)
-
-    if codeword == CHAR_SET_LEN:
-        return
-
-    val = dictionary[codeword]
-    decompressed_text.append(val)
-
-    while True:
-        codeword = reader.read_bits(CODE_BIT_LEN)
-        if not reader.read:
-            break
-        if codeword == CHAR_SET_LEN:
-            break
-        if codeword < len(dictionary):
-            s = dictionary[codeword]
-        else:
-            s = val + val[0]
-        decompressed_text.append(s)
-        if len(dictionary) < CODE_SET_LEN:
-            dictionary.append(val + s[0])
-        val = s
+    text = []
+    for i in range(0, len(bit_string), bit_length):
+        char_bits = bit_string[i:i + bit_length]
+        text.append(chr(int(char_bits, 2)))
+    return ''.join(text)
