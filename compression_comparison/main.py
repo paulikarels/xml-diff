@@ -3,11 +3,16 @@ import typer
 from compression_comparison.huffman.huffman import (
     huffman_encoding,
     huffman_decoding,
-    compress,
-    decompress,
+    compress as huffman_compress,
+    decompress as huffman_decompress,
     serialize_tree,
     deserialize_tree
 )
+from compression_comparison.lzw.lzw import (
+    lzw_compress,
+    lzw_decompress
+)
+from compression_comparison.lzw.bitio import BitWriter, BitReader
 
 app = typer.Typer()
 
@@ -36,9 +41,9 @@ def read_compressed_file(target_path):
 
 @app.command()
 # e for encoding, d for decoding
-def comparator(cmd, target):
+def comparator(cmd: str, target: str, method: str):
     """
-    Command-line interface for encoding and decoding files using Huffman coding.
+    Command-line interface for encoding and decoding files using Huffman coding or LZW compression.
     """
     data_folder = "data"
     target_path = os.path.join(data_folder, target)
@@ -47,30 +52,42 @@ def comparator(cmd, target):
         os.makedirs(data_folder)
 
     if cmd == "e":
-        with open(target_path, "r", encoding="utf8", newline='') as f:
-            text = f.read()
+        if method == "huffman":
+            with open(target_path, "r", encoding="utf8", newline='') as f:
+                text = f.read()
 
-        # Empty File
-        if not text:
-            return
+            # Empty File
+            if not text:
+                return
 
-        root, encoded_text = huffman_encoding(text)
-        compressed_text, padding = compress(encoded_text)
+            root, encoded_text = huffman_encoding(text)
+            compressed_text, padding = huffman_compress(encoded_text)
 
-        enc_file_name  = os.path.splitext(os.path.basename(target))[0]
-        output_path = os.path.join(data_folder, enc_file_name  + ".hc")
-        write_encoded_file(output_path, root, compressed_text, padding)
+            enc_file_name = os.path.splitext(os.path.basename(target))[0]
+            output_path = os.path.join(data_folder, enc_file_name + ".hc")
+            write_encoded_file(output_path, root, compressed_text, padding)
+
+        elif method == "lzw":
+            enc_file_name = os.path.splitext(os.path.basename(target))[0]
+            output_path = os.path.join(data_folder, enc_file_name + ".lzw")
+            lzw_compress(target_path, output_path)
 
     elif cmd == "d":
-        tree_data, compressed_text, padding = read_compressed_file(target_path)
-        root = deserialize_tree(tree_data)
-        encoded_text = decompress(compressed_text, padding)
-        decoded_text = huffman_decoding(root, encoded_text)
+        if method == "huffman":
+            tree_data, compressed_text, padding = read_compressed_file(target_path)
+            root = deserialize_tree(tree_data)
+            encoded_text = huffman_decompress(compressed_text, padding)
+            decoded_text = huffman_decoding(root, encoded_text)
 
-        enc_file_name  = os.path.splitext(os.path.basename(target))[0]
-        output_path = os.path.join(data_folder, enc_file_name  + "_decoded.txt")
-        with open(output_path, "w", encoding="utf8", newline='') as f:
-            f.write(decoded_text)
+            enc_file_name = os.path.splitext(os.path.basename(target))[0]
+            output_path = os.path.join(data_folder, enc_file_name + "_decoded.txt")
+            with open(output_path, "w", encoding="utf8", newline='') as f:
+                f.write(decoded_text)
+
+        elif method == "lzw":
+            enc_file_name = os.path.splitext(os.path.basename(target))[0]
+            output_path = os.path.join(data_folder, enc_file_name + "_decoded.txt")
+            lzw_decompress(target_path, output_path)
 
     else:
         print("Please either type 'e' when encoding or 'd' when decoding")
