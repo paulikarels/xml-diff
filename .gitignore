@@ -172,5 +172,5 @@ cython_debug/
 
 data/*
 !data/alice.txt
-
+!data/example.txt
 tests/test_results
