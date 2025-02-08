@@ -2,8 +2,6 @@
 
 # Käyttöohje (keskeneräinen)
 
-Ohjel
-
 ## Vaatimukset
 
 - Python 3.10

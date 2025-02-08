@@ -12,7 +12,6 @@ from compression_comparison.lzw.lzw import (
     lzw_compress,
     lzw_decompress
 )
-from compression_comparison.lzw.bitio import BitWriter, BitReader
 
 app = typer.Typer()
 
