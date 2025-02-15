@@ -1,4 +1,3 @@
-import os
 from compression_comparison.lzw.bitio import BitReader, BitWriter
 
 CHAR_BIT_LEN = 8  

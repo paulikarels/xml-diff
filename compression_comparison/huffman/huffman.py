@@ -77,7 +77,6 @@ def huffman_encoding(text):
     
     encoded_text = ''.join(codebook[char] for char in text)
 
-    
     return root, encoded_text
 
 def huffman_decoding(root, encoded_text):

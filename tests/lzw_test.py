@@ -27,7 +27,7 @@ class TestLZW(unittest.TestCase):
             with self.subTest(file=file_name):
                 print(f"Current file in test: {file_name}")
                 input_path = os.path.join(self.data_folder, file_name)
-                compressed_path = os.path.join(self.result_folder, f"{file_name}_test_rsult.lzw")
+                compressed_path = os.path.join(self.result_folder, f"{file_name}_test_result.lzw")
                 decompressed_path = os.path.join(self.result_folder, f"{file_name}_test_result_decoded.txt")
 
                 if not os.path.exists(input_path):
