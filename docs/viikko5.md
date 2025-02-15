@@ -6,16 +6,16 @@ noin 8-9h.
 
 ## Mitä olen tehnyt tällä viikolla?
 
-Paransin LZW-algoritmia käyttämällä TrieNode-rakennetta, mikä nopeutti hakua erittäin paljon ja uusien merkkijonojen lisäystä verrattuna vanhaan sanakirjapohjaiseen menetelmään (Dictionary). Laadin myös suorituskykytestejä (päänsääntöisesti Huffmanille) sekä testejä tiedoston kokoon liittyen (onko pienempi eli "compressoitu"). 
+Paransin LZW-algoritmia käyttämällä Trie puurakennetta, mikä nopeutti hakua erittäin paljon ja uusien merkkijonojen lisäystä verrattuna vanhaan sanakirjapohjaiseen menetelmään (Dictionary). Laadin myös suorituskykytestejä (päänsääntöisesti Huffmanille) sekä testejä tiedoston kokoon liittyen (onko pienempi eli "compressoitu"). 
 
 ## Miten ohjelma on edistynyt?
 
 Ohjelman tulisi olla valmis LZW ja Huffmanin-koodauksen kannalta. Testejä luotu ja ainoa asia mitä voisi parantaa (ja ollaan parantamassa) on LZW:n suorituskyky.
-Pitää kumminkin vielä muokata entinen LZW toimimaan TrieNode rakenteella (ei pitäisi olla iso homma), sillä tällä hetkellä TrieNode rakenteinen ja sanakirjapohjainen toimivat erillisesti. 
+Pitää kumminkin vielä muokata entinen LZW toimimaan Trie puurakenteella (ei pitäisi olla iso homma), sillä tällä hetkellä Trie puurakenteinen (tehty) ja sanakirjapohjainen toimivat erillisesti. 
 
 ## Mitä opin tällä viikolla / tänään?
 
-Suorituskykytestien tekoa ja Trie puurakenteesta.
+Suorituskykytestien teosta ja Trie puurakenteesta hieman.
 
 ## Mikä jäi epäselväksi tai tuottanut vaikeuksia?
 
