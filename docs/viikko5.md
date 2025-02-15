@@ -8,7 +8,7 @@ noin 8-9h.
 
 Paransin LZW-algoritmia käyttämällä Trie puurakennetta, mikä nopeutti hakua erittäin paljon ja uusien merkkijonojen lisäystä verrattuna vanhaan sanakirjapohjaiseen menetelmään (Dictionary). 
 Laadin myös suorituskykytestejä (päänsääntöisesti Huffmanille) sekä testejä tiedoston koon vertaamiseen (onko pienempi eli "compressoitu"). Myös ensimmäinen vertaisarviointi tehtiin, myös sain palautetta vertaisrvioinnista jossa ehdotettiin merkkijono syötteen lisäämistä tiedostojen lisäksi. 
-Mieluiten kumminkin jätän projektin kohdistumaan tiedostoihin pakkaamiseen, purkamiseen sekä algoritmien suorituksien vertaamiseen tiedosto syötteillä, enkä ala nyt "sooloilemaan" merkkijono syötteiden kanssa vaikka se ei olisi suuri homma.  
+Mieluiten kumminkin jätän projektin kohdistumaan pakkaamiseen, purkamiseen sekä algoritmien suorituksien vertaamiseen tiedosto syötteillä, enkä ala nyt "sooloilemaan" merkkijono syötteiden kanssa vaikka se ei olisi suuri homma.  
 
 ## Miten ohjelma on edistynyt?
 
