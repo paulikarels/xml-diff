@@ -6,7 +6,7 @@ noin 8-9h.
 
 ## Mitä olen tehnyt tällä viikolla?
 
-Paransin LZW-algoritmia käyttämällä Trie puurakennetta, mikä nopeutti hakua erittäin paljon ja uusien merkkijonojen lisäystä verrattuna vanhaan sanakirjapohjaiseen menetelmään (Dictionary). Laadin myös suorituskykytestejä (päänsääntöisesti Huffmanille) sekä testejä tiedoston kokoon liittyen (onko pienempi eli "compressoitu"). 
+Paransin LZW-algoritmia käyttämällä Trie puurakennetta, mikä nopeutti hakua erittäin paljon ja uusien merkkijonojen lisäystä verrattuna vanhaan sanakirjapohjaiseen menetelmään (Dictionary). Laadin myös suorituskykytestejä (päänsääntöisesti Huffmanille) sekä testejä tiedoston kokoon liittyen (onko pienempi eli "compressoitu"). Myös ensimmäinen vertaisarviointi tehtiin, sekä sain palautetta jossa ehdotettiin merkkijono syötettä tiedostojen lisäksi.Mieluiten jätän projektin kohdistumaan tiedostoihin pakkaamiseen, purkamiseen sekä algoritmien suorituksien vertaamiseen tiedosto syötteillä, enkä ala nyt "sooloilemaan" merkkijonosyötteiden kanssa vaikka se ei olisi suuri homma.  
 
 ## Miten ohjelma on edistynyt?
 
