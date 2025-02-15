@@ -9,7 +9,7 @@ Projektini toteustus Huffman-koodauksesta perustuu binääripuun ja minimikekon 
 
 ### LZW (Lempel-Ziv-Welch)
 
-TODO.
+TODO. Trie puurakenne (jos ei tule onglemia), muuten sanakirjamainen rakenne (Dictionary).
 
 
 ### Aikavaativuus

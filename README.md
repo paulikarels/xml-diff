@@ -37,3 +37,7 @@
 [Käyttöohje](docs/käyttöohje.md)
 
 [Viikkoraportti 4](docs/viikko4.md)
+
+### Viikko 5
+
+[Viikkoraportti 5](docs/viikko5.md)
