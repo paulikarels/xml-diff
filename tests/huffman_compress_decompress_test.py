@@ -1,6 +1,8 @@
 import os
 import pytest
-from compression_comparison.huffman.huffman import huffman_encoding, huffman_decoding, compress, decompress
+from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
+from comp_compare.huffman.compress import compress, decompress 
+
 
 @pytest.fixture(scope="function")
 def data_folder():

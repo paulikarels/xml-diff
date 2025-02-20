@@ -1,7 +1,7 @@
 import os
 import pytest
 from pytest_benchmark.fixture import BenchmarkFixture
-from compression_comparison.huffman.huffman import huffman_encoding, huffman_decoding
+from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
 
 @pytest.fixture(scope="function")
 def data_folder():
