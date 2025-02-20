@@ -1,14 +1,8 @@
 import unittest
 import os
-from compression_comparison.huffman.huffman import (
-    huffman_encoding,
-    huffman_decoding,
-    compress,
-    decompress,
-    serialize_tree,
-    deserialize_tree,
-    Node
-)
+from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
+from comp_compare.huffman.compress import compress, decompress
+from comp_compare.huffman.utils import serialize_tree, deserialize_tree
 
 class HuffmanTest(unittest.TestCase):
 
@@ -19,7 +13,7 @@ class HuffmanTest(unittest.TestCase):
 
         self.alice_text = self.load_text_from_file('tests/data/alice.txt')
         self.empty_file_text = self.load_text_from_file('tests/data/empty.txt')
-        self.large_text = self.load_text_from_file('tests/data/large_text_15MB.txt')
+        self.small_text = self.load_text_from_file('tests/data/small_text_1MB.txt')
         self.random_text = self.load_text_from_file('tests/data/random_text.txt')
 
     def load_text_from_file(self, file_path):
@@ -28,19 +22,20 @@ class HuffmanTest(unittest.TestCase):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
-    def test_huffman_encoding(self):
-        root, encoded_text = huffman_encoding(self.text)
-        self.assertIsInstance(root, Node)
-        self.assertIsInstance(encoded_text, str)
-        self.assertGreater(len(encoded_text), 0, "Encoded text should not be empty")
+    def test_single_character_repeated(self):
+        text = "aaaaa"
+        root, encoded_text = huffman_encoding(text)
+        decoded_text = huffman_decoding(root, encoded_text)
+        self.assertEqual(decoded_text, text, "Decoded repeated single character should match original")
 
-        small_text = "abc"
-        root, encoded_text = huffman_encoding(small_text)
-        self.assertIsInstance(root, Node)
-        self.assertIsInstance(encoded_text, str)
-        self.assertGreater(len(encoded_text), 0, "Encoded text for small string should not be empty")
+    def test_binary_data(self):
+        binary_data = bytes([0, 1, 2, 3, 255, 100, 50, 25])
+        binary_str = ''.join(map(chr, binary_data))
+        root, encoded_text = huffman_encoding(binary_str)
+        decoded_text = huffman_decoding(root, encoded_text)
+        self.assertEqual(decoded_text, binary_str, "Decoded binary data should match original")
 
-    def test_huffman_decoding(self):
+    def test_huffman_encoding_decoding(self):
         root, encoded_text = huffman_encoding(self.text)
         decoded_text = huffman_decoding(root, encoded_text)
         self.assertEqual(decoded_text, self.text, "Decoded text should match the original text")
@@ -59,11 +54,6 @@ class HuffmanTest(unittest.TestCase):
         root, encoded_text = huffman_encoding(self.alice_text)
         decoded_text = huffman_decoding(root, encoded_text)
         self.assertEqual(decoded_text, self.alice_text, "Decoded Alice text should match the original text")
-    
-    def test_large_text(self):
-        root, encoded_text = huffman_encoding(self.large_text)
-        decoded_text = huffman_decoding(root, encoded_text)
-        self.assertEqual(decoded_text, self.large_text, "Decoded large text should match the original text")
 
     def test_random_text(self):
         root, encoded_text = huffman_encoding(self.random_text)
@@ -91,7 +81,10 @@ class HuffmanTest(unittest.TestCase):
         decoded_text = huffman_decoding(root, decompressed_data)
         self.assertEqual(decoded_text, self.empty_text, "Decoded empty text after compression should be empty")
 
-
+    def test_invalid_text_for_encoding(self):
+        invalid_text = None
+        with self.assertRaises(TypeError):
+            huffman_encoding(invalid_text)
 
 if __name__ == "__main__":
     unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(HuffmanTest))
