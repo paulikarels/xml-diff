@@ -1,35 +1,73 @@
-from compression_comparison.lzw.bitio import BitReader, BitWriter
+from comp_compare.lzw.bitio import BitReader, BitWriter
 
 CHAR_BIT_LEN = 8  
 CODE_BIT_LEN = 12
 CHAR_SET_LEN = 2 ** CHAR_BIT_LEN
 CODE_SET_LEN = 2 ** CODE_BIT_LEN
 
-def build_lzw_dictionary(input_text=None):
-    """
-    Create the LZW dictionary with all single-character strings.
-    """
-    dictionary = {chr(i): i for i in range(CHAR_SET_LEN)}
-    if input_text:
-        unique_chars = set(input_text)
-        for char in unique_chars:
-            if char not in dictionary:
-                dictionary[char] = len(dictionary)
-    return dictionary
+class TrieNode:
+    def __init__(self):
+        """
+        Initializes a TrieNode with an empty dictionary of children and no assigned code.
+        """
+        self.children = {}
+        self.code = None
 
-def longest_prefix_in_dictionary(dictionary, query):
-    """
-    Finds the longest prefix of the query that exists in the dictionary.
+class Trie:
+    def __init__(self):
+        """
+        Initializes a Trie with a root TrieNode and a size counter.
+        """
+        self.root = TrieNode()
+        self.size = 0
 
-    Args:
-        dictionary (dict): The LZW dictionary.
-        query (str): The input string to search for the longest prefix.
+    def insert(self, word, code):
+        """
+        Inserts a word into the Trie with the given code.
+
+        Args:
+            word (str): The word to insert.
+            code (int): The code to associate with the word.
+        """
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.code = code
+        self.size += 1
+
+    def search_longest_prefix(self, word):
+        """
+        Searches for the longest prefix of the given word that exists in the Trie.
+
+        Args:
+            word (str): The input word to search for.
+        
+        Returns:
+            str: The longest matching prefix found in the Trie.
+        """
+        node = self.root
+        longest_prefix = ""
+        current_prefix = ""
+        for char in word:
+            if char in node.children:
+                node = node.children[char]
+                current_prefix += char
+                if node.code is not None:
+                    longest_prefix = current_prefix
+            else:
+                break
+        return longest_prefix
+
+def build_lzw_trie():
     """
-    length = 0
-    for i in range(1, len(query) + 1):
-        if query[:i] in dictionary:
-            length = i
-    return query[:length] if length > 0 else query[0]
+    Create the LZW dictionary using a Trie with all single-character strings.
+    """
+    trie = Trie()
+    for i in range(CHAR_SET_LEN):
+        trie.insert(chr(i), i)
+    return trie
 
 # Encoding consist of 5 steps (From Wikipedia) https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch#Encoding
 '''
@@ -41,14 +79,14 @@ def longest_prefix_in_dictionary(dictionary, query):
 '''
 def lzw_compress(origin_filepath, compress_filepath):
     """
-    Compresses a file with LZW.
+    Compresses a file with LZW using a Trie structure.
 
     Args:
         origin_filepath (str): The path to the original file to be compressed.
         compress_filepath (str): The path to the output compressed file.
     """
     # Step 1.
-    dictionary = build_lzw_dictionary()
+    trie = build_lzw_trie()
     code = CHAR_SET_LEN + 1
 
     with open(origin_filepath, 'rb') as ori_f, open(compress_filepath, 'wb') as com_f:
@@ -63,20 +101,23 @@ def lzw_compress(origin_filepath, compress_filepath):
 
             while len(input) > 0:
                 # Step 2.
-                W = longest_prefix_in_dictionary(dictionary, input)
+                W = trie.search_longest_prefix(input)
                 
                 # Step 3.
-                writer.write_bits(dictionary[W], CODE_BIT_LEN)
+                node = trie.root
+                for char in W:
+                    node = node.children[char]
+                writer.write_bits(node.code, CODE_BIT_LEN)
 
                 if len(W) < len(input) and code < CODE_SET_LEN:
                     # Step 4.
-                    dictionary[input[:len(W) + 1]] = code
+                    new_sequence = input[:len(W) + 1]
+                    trie.insert(new_sequence, code)
                     code += 1
                 
                 input = input[len(W):]
             
             writer.write_bits(CHAR_SET_LEN, CODE_BIT_LEN)
-
 # Decoding consists of 3 steps (From Wikipedia) https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch#Decoding
 '''
 1. Initialize the dictionary to contain all strings of length one.
@@ -89,7 +130,7 @@ def lzw_compress(origin_filepath, compress_filepath):
         Add V to the dictionary and emit V to output.
 3. Repeat Step 2 until end of input string
 '''
-def lzw_decompress(compress_filepath, origin_filepath):
+def lzw_decode(compress_filepath, origin_filepath):
     """
     Decompresses a file with LZW.
 
@@ -121,31 +162,3 @@ def lzw_decompress(compress_filepath, origin_filepath):
                     if len(dictionary) < CODE_SET_LEN:
                         dictionary.append(val + s[0])
                     val = s
-
-# Methods for testing purposes
-def create_test_bits(input_text, bit_length):
-    """
-    Creates a bit representation of the input text for testing.
-
-    Args:
-        input_text (str): The input text to be converted to bits.
-        bit_length (int): The bit length for each character.
-    """
-    bits = []
-    for char in input_text:
-        bits.append(format(ord(char), f'0{bit_length}b'))
-    return ''.join(bits)
-
-def read_test_bits(bit_string, bit_length):
-    """
-    Reads a bit string and converts it back to text for testing.
-
-    Args:
-        bit_string (str): The bit string to be converted back to text.
-        bit_length (int): The bit length for each character.
-    """
-    text = []
-    for i in range(0, len(bit_string), bit_length):
-        char_bits = bit_string[i:i + bit_length]
-        text.append(chr(int(char_bits, 2)))
-    return ''.join(text)
