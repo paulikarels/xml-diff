@@ -1,17 +1,9 @@
 import os
 import typer
-from compression_comparison.huffman.huffman import (
-    huffman_encoding,
-    huffman_decoding,
-    compress as huffman_compress,
-    decompress as huffman_decompress,
-    serialize_tree,
-    deserialize_tree
-)
-from compression_comparison.lzw.lzw import (
-    lzw_compress,
-    lzw_decompress
-)
+from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
+from comp_compare.huffman.compress import compress as huffman_compress, decompress as huffman_decompress
+from comp_compare.huffman.utils import serialize_tree, deserialize_tree
+from comp_compare.lzw.lzw import lzw_compress, lzw_decode
 
 app = typer.Typer()
 
@@ -55,7 +47,6 @@ def comparator(cmd: str, target: str, method: str):
             with open(target_path, "r", encoding="utf8", newline='') as f:
                 text = f.read()
 
-            # Empty File
             if not text:
                 return
 
@@ -86,7 +77,7 @@ def comparator(cmd: str, target: str, method: str):
         elif method == "lzw":
             enc_file_name = os.path.splitext(os.path.basename(target))[0]
             output_path = os.path.join(data_folder, enc_file_name + "_decoded.txt")
-            lzw_decompress(target_path, output_path)
+            lzw_decode(target_path, output_path)
 
     else:
         print("Please either type 'e' when encoding or 'd' when decoding")
