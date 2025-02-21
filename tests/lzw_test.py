@@ -1,6 +1,7 @@
 import unittest
 import os
-from comp_compare.lzw.lzw import lzw_compress, lzw_decode
+from comp_compare.lzw.encoding import lzw_encode
+from comp_compare.lzw.decoding import lzw_decode
 
 class TestLZW(unittest.TestCase):
 
@@ -35,7 +36,7 @@ class TestLZW(unittest.TestCase):
                 compressed_path = os.path.join(self.result_folder, f"{file_name}.lzw")
                 decompressed_path = os.path.join(self.result_folder, f"{file_name}.decoded")
 
-                lzw_compress(input_path, compressed_path)
+                lzw_encode(input_path, compressed_path)
 
                 lzw_decode(compressed_path, decompressed_path)
 
@@ -52,7 +53,7 @@ class TestLZW(unittest.TestCase):
         compressed_path = os.path.join(self.result_folder, f"{file_name}.lzw")
         decompressed_path = os.path.join(self.result_folder, f"{file_name}.decoded")
 
-        lzw_compress(input_path, compressed_path)
+        lzw_encode(input_path, compressed_path)
         lzw_decode(compressed_path, decompressed_path)
 
         with open(decompressed_path, "r", encoding="utf-8") as f:

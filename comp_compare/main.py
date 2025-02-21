@@ -1,9 +1,10 @@
 import os
 import typer
 from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
-from comp_compare.huffman.compress import compress as huffman_compress, decompress as huffman_decompress
+from comp_compare.huffman.compressor import compress as huffman_compress, decompress as huffman_decompress
 from comp_compare.huffman.utils import serialize_tree, deserialize_tree
-from comp_compare.lzw.lzw import lzw_compress, lzw_decode
+from comp_compare.lzw.encoding import lzw_encode
+from comp_compare.lzw.decoding import lzw_decode
 
 app = typer.Typer()
 
@@ -60,7 +61,7 @@ def comparator(cmd: str, target: str, method: str):
         elif method == "lzw":
             enc_file_name = os.path.splitext(os.path.basename(target))[0]
             output_path = os.path.join(data_folder, enc_file_name + ".lzw")
-            lzw_compress(target_path, output_path)
+            lzw_encode(target_path, output_path)
 
     elif cmd == "d":
         if method == "huffman":
