@@ -75,5 +75,8 @@ poetry run pytest --benchmark-only
 ## Testikattavuuden raportointi
 
 ```
-poetry run coverage run
+poetry run coverage run -m pytest
+```
+```
+poetry run coverage report -m
 ```
