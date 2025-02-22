@@ -71,13 +71,13 @@ def comparator(cmd: str, target: str, method: str):
             decoded_text = huffman_decoding(root, encoded_text)
 
             enc_file_name = os.path.splitext(os.path.basename(target))[0]
-            output_path = os.path.join(data_folder, enc_file_name + "_decoded.txt")
+            output_path = os.path.join(data_folder, enc_file_name + "_huff_decoded.txt")
             with open(output_path, "w", encoding="utf8", newline='') as f:
                 f.write(decoded_text)
 
         elif method == "lzw":
             enc_file_name = os.path.splitext(os.path.basename(target))[0]
-            output_path = os.path.join(data_folder, enc_file_name + "_decoded.txt")
+            output_path = os.path.join(data_folder, enc_file_name + "_lzw_decoded.txt")
             lzw_decode(target_path, output_path)
 
     else:

@@ -1,8 +1,7 @@
 import os
 import pytest
 from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
-from comp_compare.huffman.compressor import compress, decompress 
-
+from comp_compare.huffman.compressor import compress, decompress
 
 @pytest.fixture(scope="function")
 def data_folder():
@@ -32,36 +31,36 @@ def raw_file_5MB(data_folder):
 def test_huffman_compression_decompression_output_1MB(raw_file_1MB, result_folder):
     with open(raw_file_1MB, 'r', encoding='utf-8') as f:
         text = f.read()
-    
+
     root, encoded_text = huffman_encoding(text)
     compressed_data, padding = compress(encoded_text)
-    
+
     decompressed_data = decompress(compressed_data, padding)
     decoded_text = huffman_decoding(root, decompressed_data)
-    
+
     with open(os.path.join(result_folder, "1MB_text_compressed.hc"), 'wb') as f:
         f.write(compressed_data)
-    
+
     with open(os.path.join(result_folder, "1MB_text_decompressed.txt"), 'w', encoding='utf-8') as f:
         f.write(decoded_text)
-    
+
     assert text == decoded_text, "TExts are not matching with the original file."
 
 def test_huffman_compression_size_5MB(raw_file_5MB, result_folder):
     with open(raw_file_5MB, 'r', encoding='utf-8') as f:
         text = f.read()
-    
+
     _, encoded_text = huffman_encoding(text)
     compressed_data, _ = compress(encoded_text)
-    
+
     compressed_file_path = os.path.join(result_folder, "5MB_text_compressed.hc")
-    
+
     with open(compressed_file_path, 'wb') as f:
         f.write(compressed_data)
-    
+
     original_size = os.path.getsize(raw_file_5MB)
     compressed_size = os.path.getsize(compressed_file_path)
-    
+
     assert compressed_size < original_size, "Compressed file is not  smaller than original file"
 
 if __name__ == "__main__":
