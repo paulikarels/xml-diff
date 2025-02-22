@@ -2,7 +2,7 @@
 
 ## Ohjelman rakenne
 
-Lyhyesti: Ohjelma mahdollistaa tiedostojen pakkaamisen käyttäen kahta eri algoritmia: Huffman-koodaus ja LZW-pakkaus (Lempel–Ziv–Welch). Käyttäjä suorittaa ohjelman komentoriviltä ja antaa sille tiedoston sekä haluamansa pakkausalgoritmin.
+Ohjelma mahdollistaa tiedostojen pakkaamisen käyttäen kahta eri algoritmia: Huffman-koodaus ja LZW-pakkaus (Lempel–Ziv–Welch). Käyttäjä suorittaa ohjelman komentoriviltä ja antaa sille tiedoston sekä haluamansa pakkausalgoritmin.
 
 ### Huffmanin koodaus
 
