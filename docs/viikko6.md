@@ -23,6 +23,6 @@ Ei epäselvyyksiä.
 
 ## Mitä teen seuraavaksi?
 
-- Viimeistelejä lopullista palautusta varten ja vertaisarvioinnin palautteen hyödyntämistä
-- Teen toisen testidata vertailun jossa olisi enenmmän toistettavaa tietoa, jotta voitaisiin nähdä LZW:n hyötyjä.
-- Muuta viimeistelyä/hiomist.
+- Viimeistelyjä lopullista palautusta varten ja vertaisarvioinnin palautteen hyödyntämistä
+- Teen toisen testidata vertailun jossa olisi enenmmän toistettavaa tietoa, jossa voitaisiin nähdä LZW:n hyötyjä.
+- Muuta viimeistelyä/hiomista.
