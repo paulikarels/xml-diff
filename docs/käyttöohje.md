@@ -18,7 +18,7 @@ poetry install
 
   Jos haluat pakata tiedoston, käytä seuraavaa komentoa:
 ```
-poetry run python compression_comparison/main.py e <tiedoston_nimi> <algoritmi>
+poetry run python comp_compare/main.py e <tiedoston_nimi> <algoritmi>
 ```
 
 * ```e``` tarkoittaa koodausta (pakkausta),
@@ -29,22 +29,19 @@ poetry run python compression_comparison/main.py e <tiedoston_nimi> <algoritmi>
 * Huffman-koodauksella
 
 ```
-poetry run python compression_comparison/main.py e alice.txt huffman
+poetry run python comp_compare/main.py e alice.txt huffman
 ``` 
 * LZW-pakkauksella
 ```
-poetry run python compression_comparison/main.py e example.txt lzw
+poetry run python comp_compare/main.py e example.txt lzw
 ``` 
 Pakatut tiedostot luodaan data kansioon tiedosto päättellä .hc jos huffman-koodauksella suoritettu tai .lzw kun LZW algoritmilla suoritettu.
-
-#### Huomio:
-Tiedosto alice.txt on erittäin suuri, joten se saattaa viedä aikaa käsitellä. Jos käytät LZW-pakkausta, kannattaa luoda oma pienempi tekstitiedosto data kansioon kokeilua varten.
 
 ### 2. Purkaminen (Decoding)
 
   Jos haluat purkaa pakatun tiedoston, käytä seuraavaa komentoa::
 ```
-poetry run python compression_comparison/main.py d <pakattu_tiedosto> <algoritmi>
+poetry run python comp_compare/main.py d <pakattu_tiedosto> <algoritmi>
 ```
 
 * ```d``` tarkoittaa purkamista,
@@ -55,17 +52,24 @@ poetry run python compression_comparison/main.py d <pakattu_tiedosto> <algoritmi
 * LZW-paketun tiedoston purkaminen
 
 ```
-poetry run python compression_comparison/main.py d example.lzw lzw
+poetry run python comp_compare/main.py d example.lzw lzw
 ``` 
 
 
 
-## Testien suoritus (keskeneräinen)
+## Testien suoritus 
 
 ```
 poetry run pytest
 ```
 
+
+Suorituskykytestejä ei ajeta oletuksena, joten ne joutuu ajamaa erillisesti seuraavalla komennolla:
+
+
+```
+poetry run pytest --benchmark-only
+```
 
 
 ## Testikattavuuden raportointi
