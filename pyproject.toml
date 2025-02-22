@@ -1,12 +1,12 @@
 [project]
-name = "compression_comparison"
+name = "comp_compare"
 version = "0.1.0"
 description = ""
 authors = [{name = "Pauli Karels",email = "pauli.karels@gmail.com"}]
 readme = "README.md"
 requires-python = "^3.10"
 packages = [
-    { include = "compression_comparison" }
+    { include = "comp_compare" }
 ]
 
 [build-system]

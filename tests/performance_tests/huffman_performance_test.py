@@ -42,38 +42,38 @@ def raw_file_20MB(data_folder):
         pytest.skip(f"File not found: {file_path}")
     return file_path
 
-def test_compression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
+def test_compression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB):
     with open(raw_file_1MB, 'r', encoding='utf-8') as f:
         text = f.read()
-    benchmark.pedantic(huffman_encoding, args=(text,), rounds=10)
+    benchmark.pedantic(huffman_encoding, args=(text,), rounds=3)
 
-def test_compression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
+def test_compression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB):
     with open(raw_file_5MB, 'r', encoding='utf-8') as f:
         text = f.read()
-    benchmark.pedantic(huffman_encoding, args=(text,), rounds=10)
+    benchmark.pedantic(huffman_encoding, args=(text,), rounds=3)
 
-def test_compression_performance_10MB(benchmark: BenchmarkFixture, raw_file_10MB, result_folder):
+def test_compression_performance_10MB(benchmark: BenchmarkFixture, raw_file_10MB):
     with open(raw_file_10MB, 'r', encoding='utf-8') as f:
         text = f.read()
-    benchmark.pedantic(huffman_encoding, args=(text,), rounds=10)
+    benchmark.pedantic(huffman_encoding, args=(text,), rounds=3)
 
-def test_decompression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
+def test_decompression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB):
     with open(raw_file_1MB, 'r', encoding='utf-8') as f:
         text = f.read()
     root, encoded_text = huffman_encoding(text)
-    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=10)
+    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=3)
 
-def test_decompression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
+def test_decompression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB):
     with open(raw_file_5MB, 'r', encoding='utf-8') as f:
         text = f.read()
     root, encoded_text = huffman_encoding(text)
-    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=10)
+    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=3)
 
-def test_decompression_performance_10MB(benchmark: BenchmarkFixture, raw_file_10MB, result_folder):
+def test_decompression_performance_10MB(benchmark: BenchmarkFixture, raw_file_10MB):
     with open(raw_file_10MB, 'r', encoding='utf-8') as f:
         text = f.read()
     root, encoded_text = huffman_encoding(text)
-    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=10)
+    benchmark.pedantic(huffman_decoding, args=(root, encoded_text), rounds=3)
 
 if __name__ == "__main__":
     pytest.main()
