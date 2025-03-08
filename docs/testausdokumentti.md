@@ -2,7 +2,7 @@
 
 ### Miten testataan
 
-Projektin testaus perustuu päänsääntöisesti toiminnallisuuteen katettaviin yksikkötesteihin, jotka testaavat valtaosin pakkaamis ja purku vaiheen. 
+Projektin testaus perustuu päänsääntöisesti toiminnallisuuteen katettaviin yksikkötesteihin, jotka testaavat valtaosin pakkaamis ja purku vaiheen (päästä päähän). 
 Huffmanin-koodauksessa testataan myös laajemmin sen apufunktioiden toimintaa merkkijono syötteillä, kun taas LZW:n testit pohjautuvat pelkästään tiedoston lukuun, pakkaamiseen ja purkuun.
 
 Testidata on jaettu kahteen eri ryhmään perustestidataan ja suorituskykydataan.
