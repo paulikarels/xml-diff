@@ -1,5 +1,5 @@
-from .tree import build_huffman_tree, Node
 from collections import Counter
+from .tree import build_huffman_tree, Node
 
 def build_codes(node, prefix="", codes={}):
     """
@@ -23,7 +23,7 @@ def huffman_encoding(text):
         return None, ""
 
     frequency = Counter(text)
-    
+
     if len(frequency) == 1:
         char = next(iter(frequency))
         root = Node(frequency[char], char)
@@ -32,7 +32,7 @@ def huffman_encoding(text):
     root = build_huffman_tree(text)
     codebook = build_codes(root)
     encoded_text = ''.join(codebook[char] for char in text)
-    
+
     return root, encoded_text
 
 def huffman_decoding(root, encoded_text):
@@ -53,6 +53,6 @@ def huffman_decoding(root, encoded_text):
 
         if current_node.left is None and current_node.right is None:
             decoded_text += current_node.value
-            current_node = root 
+            current_node = root
 
     return decoded_text

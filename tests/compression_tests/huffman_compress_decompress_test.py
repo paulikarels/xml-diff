@@ -43,9 +43,6 @@ def raw_file_1MB(data_folder):
         pytest.skip(f"File not found: {file_path}")
     return file_path
 
-def pytest_sessionstart(session):
-    print("\nTesting Huffman Compression...\n")
-
 def test_huffman_compression_alice(raw_file_alice, result_folder):
     file_path = raw_file_alice
 

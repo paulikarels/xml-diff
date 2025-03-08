@@ -6,7 +6,6 @@ from comp_compare.lzw.decoding import lzw_decode
 class TestLZW(unittest.TestCase):
 
     def setUp(self):
-        """Set up test cases using actual files."""
         self.data_folder = "tests/data"
         self.result_folder = "tests/test_results"
         self.test_files = [

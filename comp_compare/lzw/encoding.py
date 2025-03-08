@@ -24,30 +24,30 @@ def lzw_encode(origin_filepath, compress_filepath):
 
     with open(origin_filepath, 'rb') as ori_f, open(compress_filepath, 'wb') as com_f:
         with BitReader(ori_f) as reader, BitWriter(com_f) as writer:
-            input = []
+            input_data  = []
             while True:
                 ch = reader.read_bits(CHAR_BIT_LEN)
                 if not reader.read:
                     break
-                input.append(chr(ch))
-            input = ''.join(input)
+                input_data .append(chr(ch))
+            input_data  = ''.join(input_data )
 
-            while len(input) > 0:
+            while len(input_data ) > 0:
                 # Step 2.
-                W = trie.search_longest_prefix(input)
-                
+                W = trie.search_longest_prefix(input_data )
+
                 # Step 3.
                 node = trie.root
                 for char in W:
                     node = node.children[char]
                 writer.write_bits(node.code, CODE_BIT_LEN)
 
-                if len(W) < len(input) and code < CODE_SET_LEN:
+                if len(W) < len(input_data ) and code < CODE_SET_LEN:
                     # Step 4.
-                    new_sequence = input[:len(W) + 1]
+                    new_sequence = input_data [:len(W) + 1]
                     trie.insert(new_sequence, code)
                     code += 1
-                
-                input = input[len(W):]
-            
+
+                input_data  = input_data [len(W):]
+
             writer.write_bits(CHAR_SET_LEN, CODE_BIT_LEN)

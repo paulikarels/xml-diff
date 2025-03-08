@@ -11,11 +11,11 @@ def compress(ones_zeros):
         byte_array.append(int(byte, 2))
     return bytes(byte_array), padding
 
-def decompress(bytesFile, padding):
+def decompress(bytesfile, padding):
     """
     Decompresses the bytes object into a binary string.
     """
-    ones_zeros = ''.join(f'{byte:08b}' for byte in bytesFile)
+    ones_zeros = ''.join(f'{byte:08b}' for byte in bytesfile)
     if padding != 8:
         ones_zeros = ones_zeros[:-padding]
     return ones_zeros

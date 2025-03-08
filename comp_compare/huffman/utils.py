@@ -16,7 +16,7 @@ def deserialize_tree(data):
     Deserializes a string of the Huffman tree back into a tree structure.
     """
     data_iter = iter(data)
-    
+
     def deserialize_helper():
         bit = next(data_iter)
         if bit == "1":
@@ -26,7 +26,7 @@ def deserialize_tree(data):
             if value == "\\n":
                 value = "\n"
             return Node(0, value)
-        
+
         left = deserialize_helper()
         right = deserialize_helper()
         return Node(0, None, left, right)

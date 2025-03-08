@@ -100,4 +100,4 @@ class HuffmanTest(unittest.TestCase):
         self.assertEqual(result.frequency, 3, "The count of root node should be 3.")
 
 if __name__ == "__main__":
-    unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(HuffmanTest))
+    unittest.main()

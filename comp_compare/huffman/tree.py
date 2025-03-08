@@ -23,7 +23,7 @@ def build_huffman_tree(text):
         return None
 
     frequency = Counter(text)
-    
+
     if len(frequency) == 1:
         char = list(frequency.keys())[0]
         return Node(frequency[char], char)

@@ -49,7 +49,7 @@ class BitReader(object):
             v = (v << 1) | bit
             n -= 1
         return v
-    
+
 class BitWriter(object):
     def __init__(self, f):
         self.accumulator = 0
@@ -65,14 +65,14 @@ class BitWriter(object):
     def __del__(self):
         try:
             self.flush()
-        except ValueError:  
+        except ValueError:
             pass
 
     def write_bit(self, bit):
         if self.bcount == 8:
             self.flush()
         if bit:
-            self.accumulator |= 1 << (7 - self.bcount) 
+            self.accumulator |= 1 << (7 - self.bcount)
         self.bcount += 1
 
     def write_bits(self, bits, n):

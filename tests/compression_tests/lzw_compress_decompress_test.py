@@ -42,10 +42,6 @@ def raw_file_1MB(data_folder):
         pytest.skip(f"File not found: {file_path}")
     return file_path
 
-def pytest_sessionstart(session):
-    """Print a message once when pytest starts running tests."""
-    print("\nTesting LZW Compression...\n")
-
 def test_lzw_compression_decompression_alice(raw_file_alice, result_folder):
     compress_file_path = os.path.join(result_folder, "alice_compressed.lzw")
     decompress_file_path = os.path.join(result_folder, "alice_decompressed.txt")
