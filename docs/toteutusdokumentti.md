@@ -26,8 +26,8 @@ LZW-algoritmin aikavaativuus koostuu pakkamisesta (encoding) ja purkamisesta (de
 ###  Kielimallien käyttö
 
 Kielimalleja tuli käytettyä algoritmien ja muiden asioiden ymmärtämiseksi ja selvittämiseksi. 
-Tuotin/Höydinsin kyllä kielimalleja säätääkseen filtteröintiä/sääntöjä komennoille (esim. "poetry run pytest .\tests\performance_tests\ --benchmark-only"), jotka löytyvät tiedostoista: conftest.py, .coveragerc ja pytest.ini. 
-
+Höydinsin kyllä kielimalleja säätääkseen filtteröintiä/sääntöjä komennoille (esim. "poetry run pytest .\tests\performance_tests\ --benchmark-only"), jotka löytyvät tiedostoista: conftest.py, .coveragerc ja pytest.ini. 
+Muuten en käyttänyt kielimalleja koodin tuottamiseen.
 
 ## Viitteet
 -  https://en.wikipedia.org/wiki/Huffman_coding
