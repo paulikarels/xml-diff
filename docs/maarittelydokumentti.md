@@ -24,9 +24,7 @@ Ohjelma ottaa syötteeksi pakattuja tai pakkaamattomia tiedostoja/tekstiä.
 
 ## Aika- ja tilavaativuudet
 
-
 Huffman koodauksen aikavaativuus on O(n log n + m), jossa n vastaa merkkien määrää ja m syötteen määrää. Rajoittavana tekijänä on siis merkkien ja kääntämisen määrän/laskemisen kannalta.
-
 
 ## Opinto-ohjelma
 

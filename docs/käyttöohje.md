@@ -66,11 +66,11 @@ poetry run pytest
 
 Suorituskykytestejä ei ajeta oletuksena, joten ne joutuu ajamaa erillisesti seuraavalla komennolla:
 
-
 ```
-poetry run pytest --benchmark-only
+poetry run pytest .\tests\performance_tests\ --benchmark-only
 ```
 
+Lisää testaukseen liittyviä komentoja testausdokumentissa.
 
 ## Testikattavuuden raportointi
 

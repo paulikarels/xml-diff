@@ -12,7 +12,6 @@
 
 ## Viikkoraportit
 
-Viimeisin viikkoraportti: [Viikkoraportti 6](docs/viikko6.md)
 ### Viikko 1
 
 [Määrittelydokumentti](docs/maarittelydokumentti.md)
