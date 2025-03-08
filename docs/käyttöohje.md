@@ -1,6 +1,6 @@
 
 
-# Käyttöohje (keskeneräinen)
+# Käyttöohje
 
 ## Vaatimukset
 

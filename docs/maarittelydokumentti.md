@@ -6,7 +6,7 @@ Projektin teen Pythonilla. Pystyn vertaisarvioida Pythonilla, Javalla, C#:lla ja
 
 ## Algoritmit ja tietorakenteet
 
-Projektin ideana on vertailla Lempel-Ziv-Welch (LZW) [2] - ja Huffman-koodauksen[1] pakkausmenetelmiä tiedostojen pakkaamisessa. 
+Projektin ideana on tutkia Lempel-Ziv-Welch (LZW) [2] - ja Huffman-koodauksen [1] pakkausmenetelmiä tiedostojen pakkaamisessa ja purkamisessa.
 
 LZW-pakkausalgoritmi perustuu toistuvien merkkijonojen löytämiseen ja korvaamiseen lyhyimmillä koodilla (bitillä). Algoritmi ei vaadi etukäteen tietoa merkkien esiintymisistä, vaan se luo  symbolitaulukon (tai tietorakenteen) pakkausprosessin aikana.
 
@@ -16,7 +16,7 @@ Tiivistetysti: LZW keskittyy toistuvien merkkijonojen esiintymiseen, kun taas Hu
 
 ## Ongelma
 
-Ongelma, jonka yritän ratkaista, liittyy Lempel-Ziv-Welch (LZW) ja Huffman-koodauksen vertailuun tiedostojen pakkaamisessa. Tavoitteena on tutkia, kumpi menetelmä tarjoaa paremman pakkaussuhteen ja suorituskyvyn.  
+Ongelma, jonka yritän ratkaista, liittyy Lempel-Ziv-Welch (LZW) ja Huffman-koodauksen pakkausmenetelmien tehokkuuden testaamiseen tiedostojen pakkaamisessa. Tavoitteena on tutkia, kumpi menetelmä tarjoaa paremman pakkaussuhteen ja suorituskyvyn tiedostojen pakkaamisessa ja purkamisessa.
 
 ## Syötteet
 
@@ -24,7 +24,7 @@ Ohjelma ottaa syötteeksi pakattuja tai pakkaamattomia tiedostoja/tekstiä.
 
 ## Aika- ja tilavaativuudet
 
-Huffman koodauksen aikavaativuus on O(n log n + m), jossa n vastaa merkkien määrää ja m syötteen määrää. Rajoittavana tekijänä on siis merkkien ja kääntämisen määrän/laskemisen kannalta.
+Huffman koodauksen aikavaativuus on O(n log n + m), jossa n vastaa merkkien määrää ja m syötteen määrää. Rajoittavana tekijänä on siis merkkien ja kääntämisen määrän/laskemisen kannalta. LZW:n tavoitettava aikavaativuus on O(n).
 
 ## Opinto-ohjelma
 

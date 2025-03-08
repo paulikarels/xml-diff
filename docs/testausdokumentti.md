@@ -11,6 +11,7 @@ Suorituskykydata koostuu suuri kokoisista tiedostoista jotka koostuvat numeroist
 
 Testejä suorittaessa testisuorituksien tulokset (tiedostot) luodaan data\test_results kansioon testattavan tiedoston nimellä ja sen käytettävllä algoritmillä "hc" tai "lzw".
 
+---
 
 ### Yksikkötestit
 
@@ -70,6 +71,8 @@ comp_compare\lzw\trie.py                28      0     10      1    97%   32->28
 TOTAL                                  258     12     92      4    95%
 ```
 
+---
+
 ### Kompressiotestit
 
 Kompressiotestit testaavat Huffman-koodauksen ja LZW algoritmien pakkaustehoa, jossa käydään 4 erilaista tiedostoa yksi kerrallaan läpi. Tiedostot pakataan ensin, sitten verrataan niiden kokoa alkuperäisiin ja lopuksi ne puretaan varmistaakseen, että purku/pakkausprosessi toimii oikein
@@ -123,6 +126,8 @@ tests\compression_tests\lzw_compress_decompress_test.py  File: alice.txt
  Compressed size: 477.50 KB
  Compression ratio: 53.47% smaller
 ```
+
+---
 
 ### Suorituskykytestit
 Suorituskykytestien ajamiseen menee tällä useampi minuutti (20~, LZW:n takia), joista saadan vastaa raportti (Zoomaa ulos tarvittaessa):
