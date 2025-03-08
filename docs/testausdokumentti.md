@@ -77,7 +77,7 @@ TOTAL                                  258     12     92      4    95%
 
 Kompressiotestit testaavat Huffman-koodauksen ja LZW algoritmien pakkaustehoa, jossa käydään 4 erilaista tiedostoa yksi kerrallaan läpi. Tiedostot pakataan ensin, sitten verrataan niiden kokoa alkuperäisiin ja lopuksi ne puretaan varmistaakseen, että purku/pakkausprosessi toimii oikein
 
-Testit voidaan suorittaa esimerkiksi seuraavalla komennolla, joka antaa printtaa myös testitulokset:
+Testit voidaan suorittaa esimerkiksi seuraavalla komennolla, joka printtaa myös testitulokset:
 
 ```
 poetry run pytest -s .\tests\compression_tests\
