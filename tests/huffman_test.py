@@ -3,6 +3,8 @@ import os
 from comp_compare.huffman.encoding import huffman_encoding, huffman_decoding
 from comp_compare.huffman.compressor import compress, decompress
 from comp_compare.huffman.utils import serialize_tree, deserialize_tree
+from comp_compare.huffman.tree import build_huffman_tree
+
 
 class HuffmanTest(unittest.TestCase):
 
@@ -85,6 +87,17 @@ class HuffmanTest(unittest.TestCase):
         invalid_text = None
         with self.assertRaises(TypeError):
             huffman_encoding(invalid_text)
+
+    def test_empty_input(self):
+        result = build_huffman_tree("")
+        self.assertIsNone(result, "Huffman tree should be None for an empty input.")
+
+    def test_single_unique_character(self):
+        text = "bbb"
+        result = build_huffman_tree(text)
+        self.assertIsNotNone(result, "Huffman tree should not be None for a single unique character.")
+        self.assertEqual(result.value, "b", "The root node should have value 'b' for the text 'bbb'.")
+        self.assertEqual(result.frequency, 3, "The count of root node should be 3.")
 
 if __name__ == "__main__":
     unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(HuffmanTest))

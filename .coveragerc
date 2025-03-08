@@ -1,0 +1,8 @@
+[coverage:run]
+branch = True
+
+[coverage:report]
+# Exclude the `tests/` directory from coverage reporting
+omit =
+    tests/*
+    conftest.py

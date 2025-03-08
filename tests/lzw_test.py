@@ -11,7 +11,6 @@ class TestLZW(unittest.TestCase):
         self.result_folder = "tests/test_results"
         self.test_files = [
             "alice.txt",
-            "empty.txt",
             "small_text_1MB.txt",
             "random_text.txt"
         ]
@@ -29,7 +28,6 @@ class TestLZW(unittest.TestCase):
                 raise FileNotFoundError(f"Test file missing: {file_path}")
 
     def test_lzw_compress_decompress_files(self):
-        """Test compressing and decompressing files to verify data integrity."""
         for file_name in self.test_files:
             with self.subTest(file=file_name):
                 input_path = os.path.join(self.data_folder, file_name)
@@ -46,8 +44,7 @@ class TestLZW(unittest.TestCase):
 
                 self.assertEqual(original_text, decompressed_text, f"Decompressed text does not match for {file_name}")
 
-    def test_empty_file(self):
-        """Test that an empty file remains empty after compression and decompression."""
+    def test_empty_file_compress_decompress(self):
         file_name = "empty.txt"
         input_path = os.path.join(self.data_folder, file_name)
         compressed_path = os.path.join(self.result_folder, f"{file_name}.lzw")

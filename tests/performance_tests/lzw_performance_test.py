@@ -37,21 +37,21 @@ def raw_file_10MB(data_folder):
         pytest.skip(f"File not found: {file_path}")
     return file_path
 
-def test_compression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
+def test_lzw_compression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
     compressed_path = os.path.join(result_folder, "1MB_text_compressed.lzw")
     benchmark.pedantic(lzw_encode, args=(raw_file_1MB, compressed_path), rounds=3)
 
-def test_decompression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
+def test_lzw_decompression_performance_1MB(benchmark: BenchmarkFixture, raw_file_1MB, result_folder):
     compressed_path = os.path.join(result_folder, "1MB_text_compressed.lzw")
     decompressed_path = os.path.join(result_folder, "1MB_text_compressed.txt")
     lzw_encode(raw_file_1MB, compressed_path)
     benchmark.pedantic(lzw_decode, args=(compressed_path, decompressed_path), rounds=3)
 
-def test_compression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
+def test_lzw_compression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
     compressed_path = os.path.join(result_folder, "5MB_text_compressed.lzw")
     benchmark.pedantic(lzw_encode, args=(raw_file_5MB, compressed_path), rounds=1)
 
-def test_decompression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
+def test_lzw_decompression_performance_5MB(benchmark: BenchmarkFixture, raw_file_5MB, result_folder):
     compressed_path = os.path.join(result_folder, "5MB_text_compressed.lzw")
     decompressed_path = os.path.join(result_folder, "5MB_text_compressed.txt")
     lzw_encode(raw_file_5MB, compressed_path)
